@@ -332,7 +332,7 @@ dags:
     ## the string value of a "known_hosts" file (for SSH only)
     ## NOTE: "known_hosts" verification can be disabled by setting to ""
     sshKnownHosts: |-
-      x
+      
 
     ## number of seconds to wait between syncs
     ## [NOTE] also sets `AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL` unless overwritten in `airflow.config`

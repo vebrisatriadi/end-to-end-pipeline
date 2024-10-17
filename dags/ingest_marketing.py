@@ -15,7 +15,7 @@ from airflow.operators.empty import EmptyOperator
 
 # Airflow Config
 default_args = {
-    'owner': 'data@alodokter.com',
+    'owner': 'vebrisatriadi@gmail.com',
     'depends_on_past': False,
     'start_date': datetime(2020, 12, 31, 17),
     'email_on_failure': True,
@@ -26,22 +26,22 @@ default_args = {
     'on_failure_callback': callback
 }
 
-execution_project_id = Variable.get('ALO_EXECUTION_PROJECT_ID')
-execution_location = Variable.get('ALO_EXECUTION_LOCATION')
-cf_name = Variable.get('ALO_INGEST_CF_NAME')
+execution_project_id = Variable.get('VEBRI_EXECUTION_PROJECT_ID')
+execution_location = Variable.get('VEBRI_EXECUTION_LOCATION')
+cf_name = Variable.get('VEBRI_INGEST_CF_NAME')
 invoke_url = f"https://{execution_location}-{execution_project_id}.cloudfunctions.net/{cf_name}"
 secret = {
-    'project_id': Variable.get('ALO_MARKETING_SECRET_PROJECT_ID'),
-    'name': Variable.get('ALO_MARKETING_SECRET_NAME'),
-    'version': Variable.get('ALO_MARKETING_SECRET_VERSION'),
+    'project_id': Variable.get('VEBRI_MARKETING_SECRET_PROJECT_ID'),
+    'name': Variable.get('VEBRI_MARKETING_SECRET_NAME'),
+    'version': Variable.get('VEBRI_MARKETING_SECRET_VERSION'),
 }
 decrypt_secret = {
-    'project_id': Variable.get('ALO_DECRYPTION_SECRET_PROJECT_ID'),
-    'name': Variable.get('ALO_DECRYPTION_SECRET_NAME'),
-    'version': Variable.get('ALO_DECRYPTION_SECRET_VERSION'),
+    'project_id': Variable.get('VEBRI_DECRYPTION_SECRET_PROJECT_ID'),
+    'name': Variable.get('VEBRI_DECRYPTION_SECRET_NAME'),
+    'version': Variable.get('VEBRI_DECRYPTION_SECRET_VERSION'),
 }
-target_project_id = Variable.get('ALO_TARGET_PROJECT_ID')
-decryption_url = Variable.get('ALO_DECRYPTION_URL')
+target_project_id = Variable.get('VEBRI_TARGET_PROJECT_ID')
+decryption_url = Variable.get('VEBRI_DECRYPTION_URL')
 start_date_iso = (
     '{{ execution_date'
     '.in_timezone("Asia/Jakarta").start_of("day")'

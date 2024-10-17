@@ -15,7 +15,7 @@ from airflow.operators.empty import EmptyOperator
 
 # Airflow Config
 default_args = {
-    'owner': 'data@alodokter.com',
+    'owner': 'vebrisatriadi@gmail.com',
     'depends_on_past': False,
     'start_date': datetime(2020, 12, 31, 17),
     'email_on_failure': True,
@@ -36,8 +36,8 @@ dag = DAG(
     max_active_runs=1
 )
 
-execution_location = Variable.get('ALO_EXECUTION_LOCATION')
-target_project_id = Variable.get('ALO_TARGET_PROJECT_ID')
+execution_location = Variable.get('VEBRI_EXECUTION_LOCATION')
+target_project_id = Variable.get('VEBRI_TARGET_PROJECT_ID')
 start_date_iso = (
     '{{ execution_date'
     '.in_timezone("Asia/Jakarta").start_of("day")'
@@ -78,14 +78,14 @@ sensor_ingestion = EmptyOperator(
     task_id='sensor_ingestion',
     dag=dag,
 )
-sensor_ingest_alodokter_rs = ExternalTaskSensor(
-    task_id='sensor_ingest_alodokter_rs',
+sensor_ingest_marketing = ExternalTaskSensor(
+    task_id='sensor_ingest_marketing',
     dag=dag,
-    external_dag_id='ingest_alodokter_rs',
+    external_dag_id='ingest_marketing',
     external_task_id='ingestion_finished',
     poke_interval=300, # poke (and reschedule) every 5 minutes
     timeout=82800, # for daily dag run, set timeout to 23 hours, hourly -> 50 minutes
     mode="reschedule", # use reschedule mode, don't block the slot for a long time
 )
-sensor_ingest_alodokter_rs >> sensor_ingestion
+sensor_ingest_marketing >> sensor_ingestion
 

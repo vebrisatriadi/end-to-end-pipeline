@@ -35,7 +35,7 @@ from airflow.operators.empty import EmptyOperator
 {% endmacro %}
 # Airflow Config
 default_args = {
-    'owner': 'data@alodokter.com',
+    'owner': 'vebrisatriadi@gmail.com',
     'depends_on_past': False,
     'start_date': datetime(2020, 12, 31, 17),
     'email_on_failure': True,
@@ -56,8 +56,8 @@ dag = DAG(
     max_active_runs=1
 )
 
-execution_location = Variable.get('ALO_EXECUTION_LOCATION')
-target_project_id = Variable.get('ALO_TARGET_PROJECT_ID')
+execution_location = Variable.get('VEBRI_EXECUTION_LOCATION')
+target_project_id = Variable.get('VEBRI_TARGET_PROJECT_ID')
 start_date_iso = ({% raw %}
     '{{ execution_date'
     '.in_timezone("Asia/Jakarta").start_of("day")'
@@ -284,12 +284,12 @@ publish_ingestion_status_op = PythonOperator(
     python_callable=invoke_cloud_functions,
     op_kwargs={% raw %}{
         "data": {
-            "project_id" : "{{ var.value.ALO_PROJECT_ID }}", 
-            "topic_id" : "{{ var.value.ALO_INGESTION_STATUS_PUBSUB_TOPIC }}", 
+            "project_id" : "{{ var.value.VEBRI_PROJECT_ID }}", 
+            "topic_id" : "{{ var.value.VEBRI_INGESTION_STATUS_PUBSUB_TOPIC }}", 
             "dag_id" : dag_id, 
             "execution_date" : execution_date_iso
         },
-        "url": "{{ var.value.ALO_PUBSUB_CF_INVOKE_URL }}"
+        "url": "{{ var.value.VEBRI_PUBSUB_CF_INVOKE_URL }}"
     }{% endraw %},
     provide_context=True,
     dag=dag

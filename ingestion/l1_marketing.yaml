@@ -5,6 +5,6 @@ dest_dataset: marketing
 db: marketing
 
 dwh_sensors:
-  - name: ingest_alodokter_rs
-    external_dag_id: ingest_alodokter_rs
+  - name: ingest_marketing
+    external_dag_id: ingest_marketing
     external_task_id: ingestion_finished

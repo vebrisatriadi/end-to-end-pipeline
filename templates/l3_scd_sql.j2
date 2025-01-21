@@ -12,7 +12,7 @@ USING (
     {% else %}
       WHERE run_date = @end_date
     {% endif %}
-    )
+    ) 
     QUALIFY ROW_NUMBER() OVER(PARTITION BY _id ORDER BY updated_at_wib DESC) = 1
   ),
   trgt AS (
